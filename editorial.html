@@ -1,0 +1,599 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Vosges Haut-Chocolat — Then · Now · Next</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+  :root{
+    --ink:#1B1A18;        /* near-black body */
+    --ink2:#4A4742;       /* secondary body */
+    --hair:#D9D3CB;       /* hairline rules */
+    --hair2:#E8E3DA;      /* lighter rules */
+    --canvas:#FAF7F1;     /* ivory page */
+    --panel:#FFFFFF;      /* paper */
+    --purple:#38165F;     /* accent only */
+    --plum:#3D1152;       /* accent 2 */
+    --muted:#8A8680;      /* metadata */
+    --dim:#B3ADA3;        /* dimmer */
+  }
+  *{box-sizing:border-box;border-radius:0!important}
+  html,body{margin:0;padding:0;background:#E4DFD5;color:var(--ink);
+    font-family:'Calibri','Segoe UI',Arial,sans-serif;font-size:12.5px;
+    -webkit-font-smoothing:antialiased}
+  .deck{display:flex;flex-direction:column;gap:36px;padding:36px 0;align-items:center}
+  .slide{width:1280px;background:var(--canvas);
+    box-shadow:0 14px 44px rgba(27,26,24,.22);
+    position:relative;padding:38px 64px 40px;
+    display:flex;flex-direction:column;color:var(--ink)}
+  .slide *{box-shadow:none!important}
+
+  /* Editorial masthead — tiny, light, no brand mark */
+  .mast{display:flex;justify-content:space-between;align-items:baseline;
+    padding-bottom:10px;border-bottom:1px solid var(--ink);margin-bottom:18px;gap:40px}
+  .mast .kicker{font-size:9.5px;letter-spacing:.34em;text-transform:uppercase;
+    color:var(--ink);font-weight:600}
+  .mast .edition{font-size:9.5px;letter-spacing:.28em;text-transform:uppercase;
+    color:var(--muted);font-weight:500}
+  .mast .edition em{font-style:normal;color:var(--purple);font-weight:700;
+    letter-spacing:.3em;margin-left:10px}
+
+  /* Headlines */
+  h1.head{font-family:'Georgia',serif;font-weight:400;
+    font-size:36px;line-height:1.08;letter-spacing:-.5px;
+    margin:0 0 6px;color:var(--ink);max-width:1020px}
+  h1.head em{font-style:italic;color:var(--ink);font-weight:400}
+  h1.head b{font-weight:400;color:var(--purple)}
+  .standfirst{font-family:'Georgia',serif;font-size:13px;line-height:1.45;
+    color:var(--ink2);max-width:960px;margin:0 0 16px;font-style:italic}
+
+  /* Section labels — old-journal marginalia */
+  .label{font-size:9px;letter-spacing:.32em;text-transform:uppercase;
+    color:var(--purple);font-weight:700;margin-bottom:6px}
+  .label.mute{color:var(--muted)}
+
+  /* ============ SLIDE 1 ============ */
+  .s1body{display:grid;grid-template-columns:1fr 2px 1fr;gap:0;flex:1;min-height:0}
+  .s1div{background:var(--hair);margin:4px 28px}
+  .s1col{display:flex;flex-direction:column;min-height:0}
+  .s1col h2{font-family:'Georgia',serif;font-size:22px;font-weight:400;
+    letter-spacing:-.2px;margin:0 0 4px;color:var(--ink);line-height:1.2}
+  .s1col h2 i{font-style:italic}
+  .s1col .lead{font-size:11.5px;line-height:1.55;color:var(--ink2);
+    margin:0 0 14px;max-width:460px}
+  .tbl{display:grid;grid-template-columns:118px 1fr;gap:0;font-size:11.25px}
+  .tbl .r{display:contents}
+  .tbl .k{font-size:9.25px;letter-spacing:.2em;text-transform:uppercase;
+    color:var(--muted);font-weight:700;padding:6px 14px 6px 0;
+    border-top:1px solid var(--hair2);line-height:1.4}
+  .tbl .v{padding:6px 0;border-top:1px solid var(--hair2);
+    color:var(--ink);line-height:1.4}
+  .tbl .v b{color:var(--purple);font-weight:400;font-family:'Georgia',serif}
+  .s1col.then .v{color:var(--ink2)}
+  .s1col.then .v b{color:var(--ink2);font-family:'Calibri',sans-serif;font-weight:700}
+  .pullquote{font-family:'Georgia',serif;font-style:italic;font-size:12.5px;
+    color:var(--ink2);line-height:1.5;margin:14px 0 0;
+    padding-left:14px;border-left:2px solid var(--purple);max-width:420px}
+  .s1foot{margin-top:auto;padding-top:18px;display:grid;grid-template-columns:repeat(3,1fr);
+    gap:0;border-top:1px solid var(--ink)}
+  .s1foot .m{padding:10px 14px 0 0}
+  .s1foot .m+.m{border-left:1px solid var(--hair);padding-left:14px}
+  .s1foot .n{font-family:'Georgia',serif;font-size:30px;line-height:1;
+    font-weight:400;color:var(--purple);letter-spacing:-.5px}
+  .s1col.then .s1foot .n{color:var(--muted)}
+  .s1foot .n small{font-size:16px;color:var(--muted);margin-left:1px;letter-spacing:0}
+  .s1foot .l{font-size:9px;letter-spacing:.18em;text-transform:uppercase;
+    color:var(--muted);margin-top:5px;line-height:1.35;font-weight:600}
+
+  /* ============ SLIDE 2 ============ */
+  .dek{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-bottom:22px;
+    border-top:1px solid var(--ink);border-bottom:1px solid var(--hair)}
+  .dek .k{padding:12px 16px 12px 0;border-right:1px solid var(--hair2)}
+  .dek .k:last-child{border-right:0}
+  .dek .k:not(:first-child){padding-left:16px}
+  .dek .n{font-family:'Georgia',serif;font-size:30px;line-height:1;
+    font-weight:400;color:var(--purple);letter-spacing:-.5px}
+  .dek .n small{font-size:15px;color:var(--muted);margin-left:1px}
+  .dek .l{font-size:9.25px;letter-spacing:.18em;text-transform:uppercase;
+    color:var(--muted);margin-top:6px;line-height:1.35;font-weight:600}
+  .s2body{display:grid;grid-template-columns:1.25fr 1px 1fr;gap:0;flex:1;min-height:0}
+  .s2div{background:var(--hair);margin:0 30px}
+  .capwrap{display:flex;flex-direction:column;min-height:0}
+  .capwrap .cap{font-family:'Georgia',serif;font-size:11px;font-style:italic;
+    color:var(--ink2);line-height:1.45;margin:0 0 10px;max-width:560px}
+  .chartwrap{flex:1;min-height:0;position:relative;padding:2px 0}
+  .chartwrap.short{height:130px;flex:0 0 auto}
+  .legend-note{font-size:9.25px;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--muted);margin-top:6px}
+  .mod{display:flex;flex-direction:column;min-height:0}
+  .modList{display:grid;grid-template-columns:82px 1fr auto;gap:0;
+    font-size:10.75px}
+  .modList .k{font-size:9px;letter-spacing:.18em;text-transform:uppercase;
+    color:var(--muted);font-weight:700;padding:7px 10px 7px 0;
+    border-top:1px solid var(--hair2);line-height:1.4}
+  .modList .v{padding:7px 10px 7px 0;border-top:1px solid var(--hair2);
+    color:var(--ink);line-height:1.45}
+  .modList .v b{color:var(--purple);font-weight:400;font-family:'Georgia',serif;font-size:11.25px}
+  .modList .s{padding:7px 0;border-top:1px solid var(--hair2);
+    font-family:'Georgia',serif;font-size:11px;color:var(--purple);
+    white-space:nowrap;text-align:right;font-style:italic}
+  .trendBox{margin-top:14px;padding-top:14px;border-top:1px solid var(--hair)}
+  .trendBox h4{margin:0 0 4px;font-size:9.25px;letter-spacing:.2em;
+    text-transform:uppercase;color:var(--muted);font-weight:700}
+  .trendBox h5{font-family:'Georgia',serif;font-size:14px;font-weight:400;
+    margin:0 0 6px;color:var(--ink);line-height:1.2}
+  .trendBox h5 i{font-style:italic;color:var(--purple)}
+  .aside{font-family:'Georgia',serif;font-style:italic;font-size:11px;
+    line-height:1.5;color:var(--ink2);margin-top:8px;padding-left:12px;
+    border-left:2px solid var(--purple)}
+  .aside b{color:var(--ink);font-family:'Calibri',sans-serif;font-style:normal;
+    font-weight:700;letter-spacing:.04em}
+
+  /* ============ SLIDE 3 ============ */
+  .s3body{display:grid;grid-template-columns:1fr 1px 1.1fr 1px 1fr;gap:0;
+    flex:1;min-height:0}
+  .s3div{background:var(--hair);margin:0 28px}
+  .s3col{display:flex;flex-direction:column;min-height:0}
+  .s3col h2{font-family:'Georgia',serif;font-size:18px;font-weight:400;
+    letter-spacing:-.2px;margin:0 0 10px;color:var(--ink);line-height:1.2}
+  .s3col h2 i{font-style:italic;color:var(--purple)}
+
+  .phList{list-style:none;margin:0;padding:0;font-size:10.75px}
+  .phList li{padding:8px 0;border-top:1px solid var(--hair2);
+    display:grid;grid-template-columns:78px 1fr;gap:12px;
+    align-items:baseline;line-height:1.4}
+  .phList li:last-child{border-bottom:1px solid var(--hair2)}
+  .phList .tag{font-family:'Georgia',serif;font-style:italic;font-size:11px;
+    color:var(--purple)}
+  .phList .tx b{color:var(--ink);font-family:'Georgia',serif;font-weight:400}
+
+  .mathHeader{display:grid;grid-template-columns:repeat(3,1fr);gap:0;
+    border-top:1px solid var(--ink);border-bottom:1px solid var(--hair);
+    margin-bottom:10px}
+  .mathHeader .c{padding:10px 12px 10px 0}
+  .mathHeader .c+.c{border-left:1px solid var(--hair2);padding-left:12px}
+  .mathHeader .n{font-family:'Georgia',serif;font-size:22px;line-height:1;
+    color:var(--purple);letter-spacing:-.3px}
+  .mathHeader .n small{font-size:12px;color:var(--muted);margin-left:2px}
+  .mathHeader .l{font-size:8.5px;letter-spacing:.18em;text-transform:uppercase;
+    color:var(--muted);margin-top:4px;font-weight:700}
+  .pbChart{flex:1;min-height:0;position:relative}
+  .pbCap{font-family:'Georgia',serif;font-style:italic;font-size:10.5px;
+    color:var(--ink2);line-height:1.5;margin-top:8px;padding-left:12px;
+    border-left:2px solid var(--purple)}
+  .pbCap b{font-family:'Calibri',sans-serif;font-style:normal;color:var(--ink);font-weight:700}
+
+  .nodes{display:flex;align-items:flex-end;justify-content:space-between;
+    margin:8px 0 14px;padding:10px 0;border-top:1px solid var(--hair2);
+    border-bottom:1px solid var(--hair2)}
+  .node{text-align:center;flex:0 0 auto;padding:0 4px}
+  .node .dot{width:14px;height:14px;border:1.5px solid var(--purple);
+    background:var(--canvas);display:block;margin:0 auto 6px;
+    transform:rotate(45deg)}
+  .node .dot.hub{background:var(--purple)}
+  .node .nm{font-family:'Georgia',serif;font-size:11px;color:var(--ink);line-height:1.15}
+  .node .sub{font-size:8.5px;color:var(--muted);letter-spacing:.14em;
+    text-transform:uppercase;margin-top:3px;font-weight:600}
+  .edge{flex:1;height:1px;background:repeating-linear-gradient(
+    to right,var(--purple) 0 3px,transparent 3px 7px);margin:0 4px 30px}
+  .vision p{font-family:'Georgia',serif;font-size:12px;line-height:1.55;
+    color:var(--ink);margin:0 0 8px}
+  .vision p b{color:var(--purple);font-weight:400;font-style:italic;font-family:'Georgia',serif}
+  .vision p span{color:var(--ink2)}
+  .vClose{margin-top:auto;padding-top:12px;border-top:1px solid var(--hair);
+    font-family:'Georgia',serif;font-size:12px;color:var(--ink);line-height:1.45;font-style:italic}
+  .vClose b{color:var(--purple);font-style:italic;font-weight:400}
+
+  .folio{display:none}
+
+  /* ============ MOTION ============ */
+  .slide{opacity:0;transform:translateY(14px);
+    transition:opacity .9s ease, transform .9s ease}
+  .slide.in{opacity:1;transform:none}
+  .slide.in .head,.slide.in .standfirst,.slide.in h2,
+  .slide.in .dek .k,.slide.in .s1foot .m,
+  .slide.in .tbl .r,.slide.in .modList > div,
+  .slide.in .mathHeader .c,.slide.in .phList li,
+  .slide.in .node,.slide.in .vision p,.slide.in .vClose{
+    animation:rise .7s ease both}
+  .slide.in .head{animation-delay:.05s}
+  .slide.in .standfirst{animation-delay:.15s}
+  .slide.in h2{animation-delay:.25s}
+  .slide.in .dek .k:nth-child(1),.slide.in .s1foot .m:nth-child(1){animation-delay:.30s}
+  .slide.in .dek .k:nth-child(2),.slide.in .s1foot .m:nth-child(2){animation-delay:.38s}
+  .slide.in .dek .k:nth-child(3),.slide.in .s1foot .m:nth-child(3){animation-delay:.46s}
+  .slide.in .dek .k:nth-child(4){animation-delay:.54s}
+  .slide.in .tbl .r:nth-child(1){animation-delay:.35s}
+  .slide.in .tbl .r:nth-child(2){animation-delay:.40s}
+  .slide.in .tbl .r:nth-child(3){animation-delay:.45s}
+  .slide.in .tbl .r:nth-child(4){animation-delay:.50s}
+  .slide.in .tbl .r:nth-child(5){animation-delay:.55s}
+  .slide.in .tbl .r:nth-child(6){animation-delay:.60s}
+  .slide.in .tbl .r:nth-child(7){animation-delay:.65s}
+  @keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+
+  /* Interaction */
+  .dek .k,.s1foot .m,.mathHeader .c{transition:transform .25s ease, border-color .25s ease}
+  .dek .k:hover,.mathHeader .c:hover{transform:translateY(-2px);border-top-color:var(--purple)}
+  .s1foot .m:hover{transform:translateY(-2px)}
+  .tbl .r,.modList > div{transition:background .25s ease}
+  .tbl .r:hover .k,.tbl .r:hover .v{background:rgba(56,22,95,.04)}
+  .modList > div{padding-left:4px;margin-left:-4px}
+  .modList > div:hover{background:rgba(56,22,95,.05)}
+  .phList li{transition:background .25s ease,padding-left .25s ease}
+  .phList li:hover{background:rgba(56,22,95,.05);padding-left:6px}
+  .phList li:hover .tag{color:var(--plum)}
+  .pullquote,.aside,.pbCap{transition:border-left-width .25s ease}
+  .pullquote:hover,.aside:hover,.pbCap:hover{border-left-width:4px}
+  .node{transition:transform .3s ease}
+  .node:hover{transform:translateY(-3px)}
+  .node:hover .dot{background:var(--purple);transition:background .3s ease}
+  .dek .n,.s1foot .n,.mathHeader .n{transition:color .25s ease}
+  .dek .k:hover .n,.s1foot .m:hover .n,.mathHeader .c:hover .n{color:var(--plum)}
+  canvas{cursor:crosshair}
+
+  /* Hover tooltip — narrative on KPI tiles */
+  .tip{position:relative;cursor:help}
+  .tip::after{
+    content:attr(data-tip);
+    position:absolute;left:0;bottom:calc(100% + 10px);
+    width:260px;padding:10px 12px;
+    background:var(--ink);color:var(--canvas);
+    font-family:'Georgia',serif;font-style:italic;font-size:11px;
+    line-height:1.5;letter-spacing:.01em;
+    border-left:2px solid var(--purple);
+    opacity:0;pointer-events:none;transform:translateY(6px);
+    transition:opacity .25s ease, transform .25s ease;
+    z-index:20;white-space:normal}
+  .tip::before{
+    content:"";position:absolute;left:14px;bottom:calc(100% + 4px);
+    border:6px solid transparent;border-top-color:var(--ink);
+    opacity:0;transition:opacity .25s ease;z-index:20}
+  .tip:hover::after,.tip:hover::before{opacity:1;transform:none}
+  .tip:hover::after{transform:translateY(0)}
+
+  @media (prefers-reduced-motion: reduce){
+    .slide,.slide.in *{animation:none!important;transition:none!important;
+      opacity:1!important;transform:none!important}
+  }
+  @media print{
+    @page{size:13.33in 10in;margin:0}
+    html,body{background:#fff}
+    .deck{gap:0;padding:0}
+    .slide{box-shadow:none;page-break-after:always;margin:0;width:13.33in;height:10in;min-height:0;overflow:hidden;
+      opacity:1!important;transform:none!important}
+    .slide:last-child{page-break-after:auto}
+    .slide *{animation:none!important;transition:none!important}
+    .slide .in,.slide{opacity:1!important;transform:none!important}
+  }
+</style>
+</head>
+<body>
+<div class="deck">
+
+<!-- ============ SLIDE 1 — THEN / NOW ============ -->
+<section class="slide">
+  <div class="mast">
+    <div class="kicker">Vosges Haut-Chocolat · A Conversation About Capability</div>
+    <div class="edition">Fiscal 2025 Review <em>I</em></div>
+  </div>
+
+  <h1 class="head">Same walls. Same brand. <em>A different company</em> underneath.</h1>
+  <p class="standfirst">What the prior era built. What the new era built. And what we kept on purpose.</p>
+
+  <div class="s1body">
+    <div class="s1col then">
+      <div class="label mute">Then · prior ownership</div>
+      <h2>A brand ahead of its <i>engine.</i></h2>
+      <p class="lead">World-class creative and innovation no one else could touch — but the operation was never built to carry the brand at scale.</p>
+      <div class="tbl">
+        <div class="r"><div class="k">Brand · R&amp;D</div><div class="v">Iconic. Truffles, bars, bacon bar, PB-PB cup.</div></div>
+        <div class="r"><div class="k">Systems</div><div class="v">15-year-old CMS · Nutracoster recipe tool, 20+ yrs · islands of data.</div></div>
+        <div class="r"><div class="k">Floor tools</div><div class="v">Paper pick lists. Paper counts. Rekeying everywhere.</div></div>
+        <div class="r"><div class="k">QA</div><div class="v">Manual inspection. Errors caught downstream — often after shipment.</div></div>
+        <div class="r"><div class="k">Capacity</div><div class="v">~1,440 orders/day peak · manual-heavy · single-carrier rate card.</div></div>
+        <div class="r"><div class="k">Cost / ship</div><div class="v">$30.83 · legacy pricing · no carrier optionality.</div></div>
+        <div class="r"><div class="k">Service</div><div class="v">Customer replies averaged 24–48 hours.</div></div>
+      </div>
+      <div class="pullquote">"The PB-PB cup never left a kitchen recipe." The creative was there. The chassis to ship it wasn't.</div>
+      <div class="s1foot">
+        <div class="m"><div class="n">1,440</div><div class="l">Daily capacity<br>peak</div></div>
+        <div class="m"><div class="n">28</div><div class="l">Peak-season<br>staff</div></div>
+        <div class="m"><div class="n">$30.83</div><div class="l">Cost per<br>shipment</div></div>
+      </div>
+    </div>
+
+    <div class="s1div"></div>
+
+    <div class="s1col now">
+      <div class="label">Now · current ownership</div>
+      <h2>The brand, <i>plus the engine it deserves.</i></h2>
+      <p class="lead">Same building. Same team DNA. A modernized operational spine — connected systems, instrumented floors, simpler choices at every step.</p>
+      <div class="tbl">
+        <div class="r"><div class="k">Brand · R&amp;D</div><div class="v"><b>Kept intact.</b> Innovation calendar protected — the reason you buy Vosges.</div></div>
+        <div class="r"><div class="k">Systems</div><div class="v"><b>Current-gen MRP</b> retires the 15-yr CMS · <b>Flavor Studio</b> AI recipe platform replaces Nutracoster.</div></div>
+        <div class="r"><div class="k">Floor tools</div><div class="v"><b>Tablets &amp; scanners</b> on every station. Paper usage <b>cut by 50%.</b></div></div>
+        <div class="r"><div class="k">QA</div><div class="v"><b>99.97% pick accuracy</b> · checkweigher + scan-verified · errors caught pre-seal.</div></div>
+        <div class="r"><div class="k">Capacity</div><div class="v"><b>~5,000 orders/day sustainable</b> on the same footprint · 2,618/day already proven.</div></div>
+        <div class="r"><div class="k">Cost / ship</div><div class="v"><b>$12.32</b> — carrier simplification + rate negotiation.</div></div>
+        <div class="r"><div class="k">Service</div><div class="v"><b>Under 1-hour first-response</b> with Gorgias + 24/7 virtual agents.</div></div>
+      </div>
+      <div class="pullquote">What we kept on purpose: the creative, the flavor R&amp;D, the brand voice. None of the upgrade touched the product.</div>
+      <div class="s1foot">
+        <div class="m"><div class="n">+82<small>%</small></div><div class="l">Capacity<br>(same space)</div></div>
+        <div class="m"><div class="n">−14<small>%</small></div><div class="l">Peak staff<br>(28 → 24)</div></div>
+        <div class="m"><div class="n">−60<small>%</small></div><div class="l">Cost drift<br>per shipment</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="folio">I · Capability</div>
+</section>
+
+<!-- ============ SLIDE 2 — THE DIVIDEND ============ -->
+<section class="slide">
+  <div class="mast">
+    <div class="kicker">The Dividend of Modernization · And What Held During the Rebuild</div>
+    <div class="edition">Fiscal 2025 Review <em>II</em></div>
+  </div>
+
+  <h1 class="head">A footprint sized for December. <em>Running in April.</em></h1>
+  <p class="standfirst">Fewer systems, better ones. More throughput, same walls. Faster answers at every door — even as the line was being rebuilt underneath.</p>
+
+  <div class="dek">
+    <div class="k tip" data-tip="Daily orders the line can sustain without overtime or seasonal temps. Engineered through modernization — not a peak, a floor."><div class="n">~5,000</div><div class="l">Sustainable daily<br>shipping capacity</div></div>
+    <div class="k tip" data-tip="~18 hours a day of paper handling, rekeying, and manual counts erased from the floor — roughly $60K in labor reclaimed in Year 1 once tablets &amp; scanners went live on every station."><div class="n">18<small>/day</small></div><div class="l">Hrs reclaimed daily<br>tablets &amp; scanners · ~$60K Y1</div></div>
+    <div class="k tip" data-tip="Infrastructure cost on a per-year basis. Legacy servers retired, workload consolidated on the modern stack."><div class="n">−50<small>%</small></div><div class="l">Server tax<br>year over year</div></div>
+    <div class="k tip" data-tip="End-of-life software risk retired — the 15-yr CMS and 20+ yr recipe tool no longer in the critical path."><div class="n">−75<small>%</small></div><div class="l">End-of-life risk<br>retired legacy stack</div></div>
+  </div>
+
+  <div class="s2body">
+    <div class="capwrap">
+      <div class="label">Exhibit · capacity already built</div>
+      <h2 style="font-family:Georgia;font-size:18px;font-weight:400;margin:0 0 6px;letter-spacing:-.2px">Proven to 2,618/day. Engineered to sustain <em style="color:var(--purple);font-style:italic">~5,000</em>.</h2>
+      <p class="cap">FY25 monthly average daily throughput against the peak we've proven and the ceiling we've engineered. The gap — the white space above the bars — is capacity that already exists inside the current footprint.</p>
+      <div class="chartwrap"><canvas id="utilization"></canvas></div>
+      <div class="legend-note">Monthly FY25 · same building · same racking · same crew</div>
+    </div>
+
+    <div class="s2div"></div>
+
+    <div class="mod">
+      <div class="label">What the modernization delivered</div>
+      <div class="modList">
+        <div class="k">MRP</div><div class="v">Retired the <b>15-year CMS</b>; current-gen MRP in its place.</div><div class="s">1 stack</div>
+        <div class="k">Recipe</div><div class="v"><b>Flavor Studio</b> replaces Nutracoster (20+ yrs) — AI at the bench.</div><div class="s">Next-gen</div>
+        <div class="k">Floor</div><div class="v">Tablets &amp; scanners at every station. <b>Paper −50%.</b></div><div class="s">~18 hrs/day</div>
+        <div class="k">Shipping</div><div class="v">Carrier simplification. Ice &amp; unboxing standardized.</div><div class="s">−60% $/ship</div>
+        <div class="k">Service</div><div class="v">Gorgias + 24/7 agents — answered <b>under the hour</b>.</div><div class="s">24–48h → 1h</div>
+        <div class="k">Visibility</div><div class="v">Live dashboards. 24/7 automated audits. Data-driven decisions.</div><div class="s">Always-on</div>
+        <div class="k">Integration</div><div class="v">Every system talks to every other system.</div><div class="s">One graph</div>
+      </div>
+
+      <div class="trendBox">
+        <h4>Customer response · three-year trend</h4>
+        <h5>Faster even while the line was <i>being rebuilt.</i></h5>
+        <div class="chartwrap short"><canvas id="gorgias"></canvas></div>
+        <div class="aside"><b>Held the line during the rebuild.</b> Q4 2025 — the quarter we re-sequenced the pick line — closed tickets at the same speed as Q4 2024. Customers didn't feel the transition.</div>
+      </div>
+    </div>
+  </div>
+  <div class="folio">II · Dividend</div>
+</section>
+
+<!-- ============ SLIDE 3 — WHAT LIES AHEAD ============ -->
+<section class="slide">
+  <div class="mast">
+    <div class="kicker">What Lies Ahead · Phoenix Phase Two · And Beyond</div>
+    <div class="edition">Fiscal 2025 Review <em>III</em></div>
+  </div>
+
+  <h1 class="head">Faster. Simpler. <em>And then — portable.</em></h1>
+  <p class="standfirst">An $80,000 investment that pays itself back in sixteen weeks — and teaches us how to wire the next warehouse in a week, not a year.</p>
+
+  <div class="s3body">
+
+    <div class="s3col">
+      <div class="label">Phase Two · on the line</div>
+      <h2>The things that still look <i>manual.</i></h2>
+      <ul class="phList">
+        <li><span class="tag">Gift orders</span><span class="tx"><b>Dedicated box-maker station</b> at the line's head. Gift-note printed on scan — never missed again.</span></li>
+        <li><span class="tag">QA stop</span><span class="tx"><b>QA &amp; Organizer merge</b> into one role. One person owns the box before it moves.</span></li>
+        <li><span class="tag">Sealing</span><span class="tx"><b>Auto-sealer</b> replaces manual tape &amp; fold. Seasonal rental — paid back in one peak week.</span></li>
+        <li><span class="tag">Labeling</span><span class="tx">Three-tap ShipStation Mobile retired. <b>Auto peel-and-apply labeler</b> takes over.</span></li>
+        <li><span class="tag">Boxes</span><span class="tx">Sizes re-aligned to <b>FedEx One Rate tiers.</b> New SKUs require box-team approval.</span></li>
+        <li><span class="tag">Bedding</span><span class="tx">Pre-cut, known-weight. The checkweigher stops guessing; shipping math becomes exact.</span></li>
+      </ul>
+    </div>
+
+    <div class="s3div"></div>
+
+    <div class="s3col">
+      <div class="label">The math · cumulative $ through the door</div>
+      <h2>$80K out. <i>$780K back.</i></h2>
+      <div class="mathHeader">
+        <div class="c tip" data-tip="Week sixteen — cumulative savings equal the $80K investment. The auto-sealer alone pays its seasonal rental in one peak week."><div class="n">Wk 16</div><div class="l">Break-even</div></div>
+        <div class="c tip" data-tip="End of Year 1 — $180K of structural margin in the door. No growth assumption required, just steady-state savings."><div class="n">Wk 52</div><div class="l">+$180K net</div></div>
+        <div class="c tip" data-tip="Three-year cumulative net — $700K above the invest line. Assumes the line just holds; further optimization is additive."><div class="n">Yr 3</div><div class="l">+$700K net</div></div>
+      </div>
+      <div class="pbChart"><canvas id="payback"></canvas></div>
+      <div class="pbCap"><b>Read it this way —</b> every line of cost stays flat; every line of savings stacks. The curves cross at week sixteen. Everything after is structural margin on the P&amp;L.</div>
+    </div>
+
+    <div class="s3div"></div>
+
+    <div class="s3col vision">
+      <div class="label">And then — the real unlock</div>
+      <h2>A template that <i>travels.</i></h2>
+      <div class="nodes">
+        <div class="node"><span class="dot hub"></span><div class="nm">Chicago</div><div class="sub">Hub · full SKU</div></div>
+        <div class="edge"></div>
+        <div class="node"><span class="dot"></span><div class="nm">Node II</div><div class="sub">Subset</div></div>
+        <div class="edge"></div>
+        <div class="node"><span class="dot"></span><div class="nm">Node III</div><div class="sub">Subset</div></div>
+      </div>
+      <p>Every simplification on this line is a step toward a <b>standard</b> <span>— something we can wire somewhere else.</span></p>
+      <p>A <b>portable warehouse template.</b> <span>Light up a second location to fulfill a subset of products — closer to the customer, faster to deliver, cheaper to ship.</span></p>
+      <p><b>Not a bigger building.</b> <span>A smarter network.</span></p>
+      <div class="vClose"><b>Simplify first. Replicate second.</b> The next warehouse is a configuration, not a construction project.</div>
+    </div>
+
+  </div>
+  <div class="folio">III · Horizon</div>
+</section>
+
+</div>
+
+<script>
+// Print-gate: ?print=1 bypasses animations so headless Chrome captures final state.
+const PRINT = /[?&]print=1/.test(location.search);
+if(PRINT){
+  document.querySelectorAll('.slide').forEach(s=>s.classList.add('in'));
+  if(window.Chart) Chart.defaults.animation = false;
+}
+
+// IntersectionObserver: reveal slides as they enter
+const io=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }});
+},{threshold:.15});
+if(!PRINT) document.querySelectorAll('.slide').forEach(s=>io.observe(s));
+
+// Number count-up. Positive/improvement numerals animate slow and deliberately —
+// the long count is the point: you feel the yardage of work behind the figure.
+function countUp(el, dur){
+  const raw=el.getAttribute('data-n')||el.textContent.trim();
+  const m=raw.match(/^(\D*)(-?[\d,\.]+)(.*)$/);
+  if(!m)return; const prefix=m[1], suffix=m[3];
+  const target=parseFloat(m[2].replace(/,/g,''));
+  if(isNaN(target))return;
+  const start=performance.now();
+  const fmt=v=>{ const abs=Math.abs(v);
+    if(raw.includes(',')||abs>=1000) return Math.round(v).toLocaleString();
+    if(raw.includes('.')) return v.toFixed(2);
+    return Math.round(v).toString(); };
+  const slow = dur >= 4000;
+  function ease(p){
+    if(slow) return p<.5 ? 4*p*p*p : 1-Math.pow(-2*p+2,3)/2; // easeInOutCubic — sustained motion
+    return 1-Math.pow(1-p,3); // easeOutCubic
+  }
+  function tick(t){
+    const p=Math.min(1,(t-start)/dur);
+    el.textContent=prefix+fmt(target*ease(p))+suffix;
+    if(p<1) requestAnimationFrame(tick);
+  }
+  el.setAttribute('data-n',raw);
+  requestAnimationFrame(tick);
+}
+const SLOW=10000, FAST=1500;
+function isPositive(el){
+  return !!el.closest('.s1col.now, .dek, .mathHeader');
+}
+const countIO=new IntersectionObserver((es)=>{
+  es.forEach(e=>{ if(e.isIntersecting){
+    const el=e.target, pos=isPositive(el);
+    const dur = pos ? SLOW : FAST;
+    const sibs=Array.from(el.closest('.s1foot, .dek, .mathHeader')?.querySelectorAll('.n')||[]);
+    const idx=Math.max(0, sibs.indexOf(el));
+    setTimeout(()=>countUp(el,dur), idx*180);
+    countIO.unobserve(el);
+  }});
+},{threshold:.55});
+if(!PRINT) document.querySelectorAll('.dek .n, .s1foot .n, .mathHeader .n').forEach(n=>countIO.observe(n));
+
+const purple="#38165F", ink="#1B1A18", ink2="#4A4742",
+      hair="#D9D3CB", muted="#8A8680", dim="#B3ADA3",
+      canvas="#FAF7F1", paper="#FFFFFF";
+Chart.defaults.font.family="'Calibri','Segoe UI',Arial,sans-serif";
+Chart.defaults.font.size=10;
+Chart.defaults.color=ink2;
+
+// Slide 2 — Capacity
+const months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+const monthlyShip=[7200,6800,7100,7500,8200,9100,9400,10300,11800,14600,23800,21200];
+const dailyAvg=monthlyShip.map(v=>Math.round(v/26));
+const proven=new Array(12).fill(2618);
+const engineered=new Array(12).fill(5000);
+
+new Chart(document.getElementById('utilization'),{
+  data:{
+    labels:months,
+    datasets:[
+      {type:'line',label:'Engineered sustainable · ~5,000/day',data:engineered,
+        borderColor:purple,borderWidth:1.25,borderDash:[2,3],
+        pointRadius:0,fill:false,tension:0},
+      {type:'line',label:'Proven peak · 2,618/day',data:proven,
+        borderColor:purple,borderWidth:1,borderDash:[6,4],
+        pointRadius:0,fill:false,tension:0},
+      {type:'bar',label:'FY25 daily throughput',data:dailyAvg,
+        backgroundColor:'rgba(56,22,95,.78)',borderColor:purple,borderWidth:0,
+        barPercentage:.62,categoryPercentage:.82}
+    ]
+  },
+  options:{maintainAspectRatio:false,
+    plugins:{legend:{position:'bottom',align:'start',
+      labels:{color:ink2,boxWidth:10,boxHeight:2,font:{size:9},padding:12}}},
+    scales:{
+      x:{grid:{display:false},border:{color:ink},
+         ticks:{color:muted,font:{size:9}}},
+      y:{beginAtZero:true,max:5600,
+         ticks:{color:muted,font:{size:9},
+           callback:v=>v.toLocaleString()+'/d',stepSize:1000},
+         grid:{color:hair,drawBorder:false},
+         border:{display:false}}
+    }
+  }
+});
+
+// Slide 2 — Gorgias median resolution time
+new Chart(document.getElementById('gorgias'),{
+  type:'line',
+  data:{
+    labels:['FY 2023','FY 2024','FY 2025'],
+    datasets:[
+      {label:'Median resolution (hrs)',data:[44.1,23.0,21.5],
+       borderColor:purple,backgroundColor:'rgba(56,22,95,.08)',
+       borderWidth:2,tension:.28,pointRadius:4,pointBackgroundColor:purple,
+       pointBorderColor:canvas,pointBorderWidth:2,fill:true}
+    ]
+  },
+  options:{maintainAspectRatio:false,
+    plugins:{legend:{display:false},
+      tooltip:{callbacks:{label:c=>c.parsed.y.toFixed(1)+'h median'}}},
+    scales:{
+      y:{beginAtZero:true,max:50,
+         ticks:{color:muted,font:{size:9},callback:v=>v+'h',stepSize:10},
+         grid:{color:hair,drawBorder:false},border:{display:false}},
+      x:{grid:{display:false},border:{color:ink},
+         ticks:{color:muted,font:{size:9}}}
+    }
+  }
+});
+
+// Slide 3 — Payback curve
+const weeks=[0,4,8,12,16,20,26,32,40,48,52,78,104,130,156];
+const cost=weeks.map(_=>-80000);
+const net=weeks.map(w=>w*5000 - 80000);
+new Chart(document.getElementById('payback'),{
+  data:{labels:weeks.map(w=>w<53?('W'+w):('Wk '+w)),
+    datasets:[
+      {type:'line',label:'Investment · $80K',data:cost,
+       borderColor:muted,borderWidth:1,borderDash:[4,4],
+       pointRadius:0,fill:false,tension:0},
+      {type:'line',label:'Net cumulative savings',data:net,
+       borderColor:purple,backgroundColor:'rgba(56,22,95,.10)',
+       borderWidth:2,pointRadius:0,fill:true,tension:.14}
+    ]},
+  options:{maintainAspectRatio:false,
+    plugins:{legend:{position:'bottom',align:'start',
+        labels:{color:ink2,boxWidth:10,boxHeight:2,font:{size:9},padding:10}},
+      tooltip:{callbacks:{label:c=>'$'+(c.parsed.y/1000).toFixed(0)+'K'}}},
+    scales:{
+      x:{grid:{display:false},border:{color:ink},
+         ticks:{color:muted,font:{size:9},maxRotation:0,autoSkip:true,maxTicksLimit:8}},
+      y:{ticks:{color:muted,font:{size:9},callback:v=>'$'+(v/1000)+'K'},
+         grid:{color:hair,drawBorder:false},border:{display:false}}
+    }
+  }
+});
+</script>
+</body>
+</html>
