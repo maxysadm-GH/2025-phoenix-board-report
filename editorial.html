@@ -31,12 +31,12 @@
   /* Editorial masthead — tiny, light, no brand mark */
   .mast{display:flex;justify-content:space-between;align-items:baseline;
     padding-bottom:10px;border-bottom:1px solid var(--ink);margin-bottom:18px;gap:40px}
-  .mast .kicker{font-size:9.5px;letter-spacing:.34em;text-transform:uppercase;
+  .mast .kicker{font-size:9.5px;letter-spacing:.15em;text-transform:uppercase;
     color:var(--ink);font-weight:600}
-  .mast .edition{font-size:9.5px;letter-spacing:.28em;text-transform:uppercase;
+  .mast .edition{font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;
     color:var(--muted);font-weight:500}
   .mast .edition em{font-style:normal;color:var(--purple);font-weight:700;
-    letter-spacing:.3em;margin-left:10px}
+    letter-spacing:.12em;margin-left:10px}
 
   /* Headlines */
   h1.head{font-family:'Georgia',serif;font-weight:400;
@@ -48,7 +48,7 @@
     color:var(--ink2);max-width:960px;margin:0 0 16px;font-style:italic}
 
   /* Section labels — old-journal marginalia */
-  .label{font-size:9px;letter-spacing:.32em;text-transform:uppercase;
+  .label{font-size:9px;letter-spacing:.15em;text-transform:uppercase;
     color:var(--purple);font-weight:700;margin-bottom:6px}
   .label.mute{color:var(--muted)}
 
@@ -63,7 +63,7 @@
     margin:0 0 14px;max-width:460px}
   .tbl{display:grid;grid-template-columns:118px 1fr;gap:0;font-size:11.25px}
   .tbl .r{display:contents}
-  .tbl .k{font-size:9.25px;letter-spacing:.2em;text-transform:uppercase;
+  .tbl .k{font-size:9.25px;letter-spacing:.08em;text-transform:uppercase;
     color:var(--muted);font-weight:700;padding:6px 14px 6px 0;
     border-top:1px solid var(--hair2);line-height:1.4}
   .tbl .v{padding:6px 0;border-top:1px solid var(--hair2);
@@ -82,7 +82,7 @@
     font-weight:400;color:var(--purple);letter-spacing:-.5px}
   .s1col.then .s1foot .n{color:var(--muted)}
   .s1foot .n small{font-size:16px;color:var(--muted);margin-left:1px;letter-spacing:0}
-  .s1foot .l{font-size:9px;letter-spacing:.18em;text-transform:uppercase;
+  .s1foot .l{font-size:9px;letter-spacing:.08em;text-transform:uppercase;
     color:var(--muted);margin-top:5px;line-height:1.35;font-weight:600}
 
   /* ============ SLIDE 2 ============ */
@@ -94,7 +94,7 @@
   .dek .n{font-family:'Georgia',serif;font-size:30px;line-height:1;
     font-weight:400;color:var(--purple);letter-spacing:-.5px}
   .dek .n small{font-size:15px;color:var(--muted);margin-left:1px}
-  .dek .l{font-size:9.25px;letter-spacing:.18em;text-transform:uppercase;
+  .dek .l{font-size:9.25px;letter-spacing:.08em;text-transform:uppercase;
     color:var(--muted);margin-top:6px;line-height:1.35;font-weight:600}
   .s2body{display:grid;grid-template-columns:1.25fr 1px 1fr;gap:0;flex:1;min-height:0}
   .s2div{background:var(--hair);margin:0 30px}
@@ -103,12 +103,12 @@
     color:var(--ink2);line-height:1.45;margin:0 0 10px;max-width:560px}
   .chartwrap{flex:1;min-height:0;position:relative;padding:2px 0}
   .chartwrap.short{height:130px;flex:0 0 auto}
-  .legend-note{font-size:9.25px;letter-spacing:.16em;text-transform:uppercase;
+  .legend-note{font-size:9.25px;letter-spacing:.07em;text-transform:uppercase;
     color:var(--muted);margin-top:6px}
   .mod{display:flex;flex-direction:column;min-height:0}
   .modList{display:grid;grid-template-columns:82px 1fr auto;gap:0;
     font-size:10.75px}
-  .modList .k{font-size:9px;letter-spacing:.18em;text-transform:uppercase;
+  .modList .k{font-size:9px;letter-spacing:.08em;text-transform:uppercase;
     color:var(--muted);font-weight:700;padding:7px 10px 7px 0;
     border-top:1px solid var(--hair2);line-height:1.4}
   .modList .v{padding:7px 10px 7px 0;border-top:1px solid var(--hair2);
@@ -118,7 +118,7 @@
     font-family:'Georgia',serif;font-size:11px;color:var(--purple);
     white-space:nowrap;text-align:right;font-style:italic}
   .trendBox{margin-top:14px;padding-top:14px;border-top:1px solid var(--hair)}
-  .trendBox h4{margin:0 0 4px;font-size:9.25px;letter-spacing:.2em;
+  .trendBox h4{margin:0 0 4px;font-size:9.25px;letter-spacing:.08em;
     text-transform:uppercase;color:var(--muted);font-weight:700}
   .trendBox h5{font-family:'Georgia',serif;font-size:14px;font-weight:400;
     margin:0 0 6px;color:var(--ink);line-height:1.2}
@@ -127,7 +127,7 @@
     line-height:1.5;color:var(--ink2);margin-top:8px;padding-left:12px;
     border-left:2px solid var(--purple)}
   .aside b{color:var(--ink);font-family:'Calibri',sans-serif;font-style:normal;
-    font-weight:700;letter-spacing:.04em}
+    font-weight:700;letter-spacing:.02em}
 
   /* ============ SLIDE 3 ============ */
   .s3body{display:grid;grid-template-columns:1fr 1px 1.1fr 1px 1fr;gap:0;
@@ -155,7 +155,7 @@
   .mathHeader .n{font-family:'Georgia',serif;font-size:22px;line-height:1;
     color:var(--purple);letter-spacing:-.3px}
   .mathHeader .n small{font-size:12px;color:var(--muted);margin-left:2px}
-  .mathHeader .l{font-size:8.5px;letter-spacing:.18em;text-transform:uppercase;
+  .mathHeader .l{font-size:8.5px;letter-spacing:.08em;text-transform:uppercase;
     color:var(--muted);margin-top:4px;font-weight:700}
   .pbChart{flex:1;min-height:0;position:relative}
   .pbCap{font-family:'Georgia',serif;font-style:italic;font-size:10.5px;
@@ -172,7 +172,7 @@
     transform:rotate(45deg)}
   .node .dot.hub{background:var(--purple)}
   .node .nm{font-family:'Georgia',serif;font-size:11px;color:var(--ink);line-height:1.15}
-  .node .sub{font-size:8.5px;color:var(--muted);letter-spacing:.14em;
+  .node .sub{font-size:8.5px;color:var(--muted);letter-spacing:.06em;
     text-transform:uppercase;margin-top:3px;font-weight:600}
   .edge{flex:1;height:1px;background:repeating-linear-gradient(
     to right,var(--purple) 0 3px,transparent 3px 7px);margin:0 4px 30px}
