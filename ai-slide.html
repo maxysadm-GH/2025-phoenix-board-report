@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Vosges Haut-Chocolat — The Intelligence Layer</title>
+<style>
+  :root{
+    --ink:#1B1A18;--ink2:#4A4742;--hair:#D9D3CB;--hair2:#E8E3DA;
+    --canvas:#FAF7F1;--panel:#FFFFFF;--purple:#38165F;--plum:#3D1152;
+    --muted:#8A8680;--dim:#B3ADA3;
+  }
+  *{box-sizing:border-box;border-radius:0!important}
+  html,body{margin:0;padding:0;background:#E4DFD5;color:var(--ink);
+    font-family:'Calibri','Segoe UI',Arial,sans-serif;font-size:12.5px;
+    -webkit-font-smoothing:antialiased}
+  .deck{display:flex;flex-direction:column;gap:36px;padding:36px 0;align-items:center}
+  .slide{width:1280px;background:var(--canvas);
+    box-shadow:0 14px 44px rgba(27,26,24,.22);
+    position:relative;padding:38px 64px 40px;
+    display:flex;flex-direction:column;color:var(--ink)}
+  .slide *{box-shadow:none!important}
+
+  .mast{display:flex;justify-content:space-between;align-items:baseline;
+    padding-bottom:10px;border-bottom:1px solid var(--ink);margin-bottom:18px;gap:40px}
+  .mast .kicker{font-size:9.5px;letter-spacing:.15em;text-transform:uppercase;
+    color:var(--ink);font-weight:600}
+  .mast .edition{font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;
+    color:var(--muted);font-weight:500}
+  .mast .edition em{font-style:normal;color:var(--purple);font-weight:700;
+    letter-spacing:.12em;margin-left:10px}
+
+  h1.head{font-family:'Georgia',serif;font-weight:400;
+    font-size:34px;line-height:1.08;letter-spacing:-.5px;
+    margin:0 0 6px;color:var(--ink);max-width:1020px}
+  h1.head em{font-style:italic;color:var(--ink);font-weight:400}
+  h1.head b{font-weight:400;color:var(--purple)}
+  .standfirst{font-family:'Georgia',serif;font-size:12.5px;line-height:1.45;
+    color:var(--ink2);max-width:960px;margin:0 0 14px;font-style:italic}
+
+  .label{font-size:9px;letter-spacing:.15em;text-transform:uppercase;
+    color:var(--purple);font-weight:700;margin-bottom:6px}
+  .label.mute{color:var(--muted)}
+
+  /* 3-column body */
+  .s4body{display:grid;grid-template-columns:1fr 1px 1fr 1px 1fr;gap:0;flex:1;min-height:0}
+  .s4div{background:var(--hair);margin:0 24px}
+  .s4col{display:flex;flex-direction:column;min-height:0}
+  .s4col h2{font-family:'Georgia',serif;font-size:17px;font-weight:400;
+    letter-spacing:-.2px;margin:0 0 8px;color:var(--ink);line-height:1.2}
+  .s4col h2 i{font-style:italic;color:var(--purple)}
+
+  /* Capability cards */
+  .cap-list{list-style:none;margin:0;padding:0}
+  .cap-list li{padding:7px 0;border-top:1px solid var(--hair2)}
+  .cap-list li:last-child{border-bottom:1px solid var(--hair2)}
+  .cap-list .name{font-family:'Georgia',serif;font-size:11px;font-style:italic;
+    color:var(--purple);display:block;margin-bottom:2px}
+  .cap-list .desc{font-size:10.5px;color:var(--ink);line-height:1.4}
+  .cap-list .desc b{color:var(--purple);font-weight:400;font-family:'Georgia',serif}
+
+  /* Status pills */
+  .pill{display:inline-block;font-size:7.5px;letter-spacing:.12em;text-transform:uppercase;
+    font-weight:700;padding:2px 6px;margin-left:6px;vertical-align:middle}
+  .pill.live{background:var(--purple);color:var(--canvas)}
+  .pill.building{background:var(--hair);color:var(--purple)}
+  .pill.vision{background:var(--plum);color:var(--canvas)}
+
+  /* Vision block */
+  .vBlock{font-family:'Georgia',serif;font-size:11px;line-height:1.5;
+    color:var(--ink);margin:0 0 6px}
+  .vBlock b{color:var(--purple);font-weight:400;font-style:italic}
+  .vBlock span{color:var(--ink2)}
+
+  .vClose{margin-top:auto;padding-top:10px;border-top:1px solid var(--hair);
+    font-family:'Georgia',serif;font-size:11.5px;color:var(--ink);line-height:1.45;font-style:italic}
+  .vClose b{color:var(--purple);font-style:italic;font-weight:400}
+
+  .folio{display:none}
+
+  /* Motion */
+  .slide{opacity:0;transform:translateY(14px);
+    transition:opacity .9s ease, transform .9s ease}
+  .slide.in{opacity:1;transform:none}
+  .slide.in .head,.slide.in .standfirst,.slide.in h2,
+  .slide.in .cap-list li,.slide.in .vBlock,.slide.in .vClose{
+    animation:rise .7s ease both}
+  .slide.in .head{animation-delay:.05s}
+  .slide.in .standfirst{animation-delay:.15s}
+  .slide.in h2{animation-delay:.25s}
+  .slide.in .cap-list li:nth-child(1){animation-delay:.30s}
+  .slide.in .cap-list li:nth-child(2){animation-delay:.36s}
+  .slide.in .cap-list li:nth-child(3){animation-delay:.42s}
+  .slide.in .cap-list li:nth-child(4){animation-delay:.48s}
+  .slide.in .cap-list li:nth-child(5){animation-delay:.54s}
+  .slide.in .cap-list li:nth-child(6){animation-delay:.60s}
+  @keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+
+  .cap-list li{transition:background .25s ease,padding-left .25s ease}
+  .cap-list li:hover{background:rgba(56,22,95,.04);padding-left:5px}
+  .cap-list li:hover .name{color:var(--plum)}
+
+  @media (prefers-reduced-motion: reduce){
+    .slide,.slide.in *{animation:none!important;transition:none!important;
+      opacity:1!important;transform:none!important}
+  }
+  @media print{
+    @page{margin:0}
+    html,body{background:#fff}
+    .deck{gap:0;padding:0;background:#fff}
+    .slide{box-shadow:none;margin:0;width:1280px;height:auto;
+      opacity:1!important;transform:none!important}
+    .slide *{animation:none!important;transition:none!important}
+  }
+</style>
+</head>
+<body>
+<div class="deck">
+
+<section class="slide">
+  <div class="mast">
+    <div class="kicker">The Intelligence Layer &middot; AI, Agents &amp; Smart Systems</div>
+    <div class="edition">Fiscal 2025 Review <em>IV</em></div>
+  </div>
+
+  <h1 class="head">Not just a chocolate company. <em>A <b>smart</b> one.</em></h1>
+  <p class="standfirst">Every system we build asks one question: can a machine do this faster, cheaper, or more reliably than a person? Built in-house. No outside consultants. No off-the-shelf licenses. Here&rsquo;s what&rsquo;s already live &mdash; and what&rsquo;s coming.</p>
+
+  <div class="s4body">
+
+    <!-- ── COLUMN 1: LIVE NOW ── -->
+    <div class="s4col">
+      <div class="label">Live today <span class="pill live">Running</span></div>
+      <h2>The machines that already <i>work for us.</i></h2>
+
+      <ul class="cap-list">
+        <li>
+          <span class="name">Weather Intelligence</span>
+          <span class="desc">Every morning we check the forecast across <b>42,735 ZIP codes.</b> If it&rsquo;s hot, we automatically switch carriers and routes so chocolate arrives safe. No one touches a spreadsheet.</span>
+        </li>
+        <li>
+          <span class="name">Smart Dashboards</span>
+          <span class="desc">Real-time view of every shipment, every order, every escalation. Not just numbers &mdash; <b>the dashboards explain what you&rsquo;re reading.</b> Built to understand, not just display.</span>
+        </li>
+        <li>
+          <span class="name">System Watchdogs</span>
+          <span class="desc">AI agents monitor critical systems <b>24/7.</b> If something breaks at 2 AM, a bot catches it and alerts the team. Problems found before customers notice.</span>
+        </li>
+        <li>
+          <span class="name">Virtual Agents</span>
+          <span class="desc">Customer questions answered in <b>under one hour.</b> Bots handle the first response; humans handle the nuance. Runs around the clock.</span>
+        </li>
+        <li>
+          <span class="name">Flavor Studio AI</span>
+          <span class="desc">Replaced a <b>20-year-old recipe tool.</b> New flavors get costed and validated before they hit the kitchen. AI at the bench.</span>
+        </li>
+        <li>
+          <span class="name">In-House Integrations</span>
+          <span class="desc">Every system talks to every other system &mdash; <b>built here, not bought.</b> Cuts cost and processing time because there&rsquo;s no middleman.</span>
+        </li>
+      </ul>
+    </div>
+
+    <div class="s4div"></div>
+
+    <!-- ── COLUMN 2: BUILDING NOW ── -->
+    <div class="s4col">
+      <div class="label">Building now <span class="pill building">In progress</span></div>
+      <h2>The next wave &mdash; <i>already in motion.</i></h2>
+
+      <ul class="cap-list">
+        <li>
+          <span class="name">Smart Box Sizing</span>
+          <span class="desc">The right box for every order, matched to <b>FedEx One Rate tiers.</b> Less empty space, less waste, lower cost per shipment.</span>
+        </li>
+        <li>
+          <span class="name">Out-of-Stock Predictions</span>
+          <span class="desc">We&rsquo;ll know what&rsquo;s going to run out on our <b>ecommerce channels before it happens</b> &mdash; and restock or redirect before a customer hits a sold-out page.</span>
+        </li>
+        <li>
+          <span class="name">Agent Expansion</span>
+          <span class="desc">More bots doing more work: <b>checking orders, flagging anomalies, catching errors</b> before they ship. Every agent we add is a person we don&rsquo;t have to wake up.</span>
+        </li>
+        <li>
+          <span class="name">Smart Dashboards 2.0</span>
+          <span class="desc">Dashboards that don&rsquo;t just show data &mdash; they <b>tell you what to do about it.</b> Ask a question in plain English, get an answer with the data behind it.</span>
+        </li>
+      </ul>
+
+      <div style="margin-top:auto;padding-top:12px;border-top:1px solid var(--hair)">
+        <div style="font-family:Georgia;font-size:11px;color:var(--ink2);font-style:italic;line-height:1.5">
+          <b style="color:var(--ink);font-family:Calibri;font-style:normal;font-weight:700">The pattern:</b> every tool we build gets smarter over time. The weather system started with 824 ZIP codes &mdash; now it covers 42,735. That&rsquo;s how we build: ship it, learn, expand.
+        </div>
+      </div>
+    </div>
+
+    <div class="s4div"></div>
+
+    <!-- ── COLUMN 3: THE VISION ── -->
+    <div class="s4col" style="background:var(--plum);color:var(--canvas);margin:-14px -16px -14px 0;padding:14px 20px">
+      <div class="label" style="color:rgba(234,225,245,.8)">The vision <span class="pill vision">Roadmap</span></div>
+      <h2 style="color:var(--canvas)">Where it all <i style="color:rgba(234,225,245,.9)">goes.</i></h2>
+
+      <p class="vBlock" style="color:var(--canvas)"><b style="color:rgba(234,225,245,.9)">Demand Forecasting.</b> <span style="color:rgba(255,255,255,.8)">Predict what customers will order &mdash; by channel, by season, by trend &mdash; before they order it. Buy smarter. Waste less.</span></p>
+
+      <p class="vBlock" style="color:var(--canvas)"><b style="color:rgba(234,225,245,.9)">Competitor Monitoring.</b> <span style="color:rgba(255,255,255,.8)">Track what competitors are doing: pricing, launches, promotions. Know in hours, not weeks. React before market share moves.</span></p>
+
+      <p class="vBlock" style="color:var(--canvas)"><b style="color:rgba(234,225,245,.9)">Marketing Investment Optimization.</b> <span style="color:rgba(255,255,255,.8)">Know which marketing dollar is working and which isn&rsquo;t. Shift spend to what converts. Stop guessing.</span></p>
+
+      <p class="vBlock" style="color:var(--canvas)"><b style="color:rgba(234,225,245,.9)">Autonomous Operations.</b> <span style="color:rgba(255,255,255,.8)">An agent for every repeatable decision. Reorder triggers. Carrier switches. Price adjustments. The warehouse runs itself &mdash; people handle what people do best.</span></p>
+
+      <p class="vBlock" style="color:var(--canvas)"><b style="color:rgba(234,225,245,.9)">Full Forecasting Stack.</b> <span style="color:rgba(255,255,255,.8)">Weather + demand + inventory + sales velocity &mdash; one brain. From raw ingredients to the customer&rsquo;s door, every decision informed by data.</span></p>
+
+      <div class="vClose" style="color:var(--canvas)">
+        <b style="color:rgba(234,225,245,.9)">The goal isn&rsquo;t more software.</b> It&rsquo;s fewer decisions that need a human &mdash; so humans can focus on the product, the brand, and the customer.
+      </div>
+    </div>
+
+  </div>
+  <div class="folio">IV &middot; Intelligence</div>
+</section>
+
+</div>
+
+<script>
+const PRINT = /[?&]print=1/.test(location.search);
+if(PRINT) document.querySelectorAll('.slide').forEach(s=>s.classList.add('in'));
+const io=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }});
+},{threshold:.15});
+if(!PRINT) document.querySelectorAll('.slide').forEach(s=>io.observe(s));
+</script>
+</body>
+</html>
