@@ -31,6 +31,24 @@ def screenshot_slides(html_file, base_name):
         page.goto(url, wait_until="networkidle")
         page.wait_for_timeout(1500)  # Chart.js settle
 
+        # Kill animations so elements are visible; hide hover tooltips
+        page.evaluate("""() => {
+            const s = document.createElement('style');
+            s.textContent = `
+                *, *::before, *::after {
+                    animation: none !important;
+                    transition: none !important;
+                    opacity: 1 !important;
+                    transform: none !important;
+                }
+                .tip::after, .tip::before {
+                    display: none !important;
+                }
+            `;
+            document.head.appendChild(s);
+        }""")
+        page.wait_for_timeout(300)
+
         # Get slide count and dimensions
         slide_data = page.evaluate("""() => {
             return [...document.querySelectorAll('.slide')].map((s, i) => ({
