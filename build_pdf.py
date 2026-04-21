@@ -3,13 +3,13 @@ import sys, os, io
 from pathlib import Path
 from playwright.sync_api import sync_playwright
 
-REPORTS = Path(r"C:/Users/maxys/OneDrive - MBACIO/_CODE/reports")
-TMP = Path(r"C:/Users/maxys/tmp")
+REPORTS = Path(__file__).parent
+TMP = Path.home() / "tmp"
 SLIDE_W = 1280
 
 def run(base):
     url = f"file:///{(REPORTS / (base + '.html')).as_posix()}?print=1"
-    out_pdf = REPORTS / f"{base}-v8.pdf"
+    out_pdf = REPORTS / f"{base}.pdf"
     shots_dir = TMP / f"{base}_shots"
     shots_dir.mkdir(exist_ok=True)
 
@@ -88,5 +88,5 @@ def run(base):
     pc = len(PdfReader(str(out_pdf)).pages)
     print(f"[{base}] -> {out_pdf}  ({pc} pages)")
 
-for base in ("vhc-board-2025-story-2026-04-20-editorial", "vhc-board-2025-story-2026-04-20-brand"):
+for base in ("editorial", "brand"):
     run(base)
