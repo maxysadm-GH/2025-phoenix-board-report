@@ -65,7 +65,7 @@
     letter-spacing:.05em;margin-top:3px;line-height:1.3}
 
   /* Slide 2 */
-  .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:10px}
+  .kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:10px}
   .kpi{border-top:2px solid var(--purple);padding-top:5px}
   .kpi .n{font-family:'Georgia',serif;font-size:25px;line-height:1;
     font-weight:400;color:var(--purple)}
@@ -314,7 +314,6 @@
 
   <div class="kpis">
     <div class="kpi tip" data-tip="Daily orders the line can sustain without overtime or seasonal temps. Engineered through modernization — not a peak, a floor."><div class="n">~3,120</div><div class="l">Sustainable daily<br>shipping capacity</div></div>
-    <div class="kpi tip" data-tip="Peak single-day shipments Dec 2025 (ShipStation) — already demonstrates the pick line running at volume the 2023 floor could never reach."><div class="n">5,268<small>/d</small></div><div class="l">Single-day peak<br>proven · Dec 2025</div></div>
     <div class="kpi tip" data-tip="We used to pay for old computers and software just to keep the lights on. We replaced them with modern tools that cost half as much."><div class="n good">−50<small>%</small></div><div class="l">Technology cost<br>year over year</div></div>
     <div class="kpi tip" data-tip="Old software that could break any day — gone. The 15-yr system and 20+ yr recipe tool are retired. Everything runs on current, supported platforms."><div class="n good">−75<small>%</small></div><div class="l">Old software risk<br>eliminated</div></div>
   </div>
@@ -322,8 +321,8 @@
   <div class="s2">
     <div class="heroCap">
       <div class="lbl">The unlock · capacity already built</div>
-      <h3>Proven to 5,268/day. Engineered to sustain ~3,120.</h3>
-      <div class="sub2">Same building. Same racking. Same crew. Dec 2025 averaged 2,563/day and peaked at 5,268 — vs 2023's ceiling of 1,675/day.</div>
+      <h3>Engineered to sustain ~3,120/day.</h3>
+      <div class="sub2">Same building. Same racking. Same crew. Dec 2025 averaged 2,563/day — vs 2023's ceiling of 1,675/day.</div>
       <div class="chartwrap"><canvas id="utilization"></canvas></div>
       <div class="legend2">FY25 monthly average daily throughput against proven and engineered ceilings.</div>
     </div>
@@ -345,7 +344,7 @@
       <div class="mod" style="background:var(--warm);flex:0 0 auto">
         <h3>Pick accuracy · Gorgias FY25</h3>
         <div style="display:flex;align-items:baseline;gap:14px;padding:8px 0 4px"><div style="font-family:Georgia;font-size:56px;color:var(--purple);line-height:1;letter-spacing:-1px">98.2<small style="font-size:28px">%</small></div><div style="font-size:10px;color:var(--lavender);text-transform:uppercase;letter-spacing:.12em">Shipped orders with<br>no customer-reported issue</div></div>
-        <div class="steady" style="margin-top:6px"><b>Held the line during the rebuild.</b> Dec 2025 shipped 61,503 orders (peak 5,268/day) without the accuracy floor slipping.</div>
+        <div class="steady" style="margin-top:6px"><b>Held the line during the rebuild.</b> Dec 2025 shipped 61,503 orders without the accuracy floor slipping.</div>
       </div>
     </div>
   </div>
@@ -483,7 +482,6 @@ Chart.defaults.font.size=11;
 // FY25 = Apr 2025 → Mar 2026 (Source: ShipStation via Supabase code_red_shipments)
 const months=['Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec','Jan','Feb','Mar'];
 const dailyAvg=[205,222,152,78,166,217,204,1472,2563,319,457,191];
-const proven=new Array(12).fill(5268);
 const engineered=new Array(12).fill(3120);
 
 new Chart(document.getElementById('utilization'),{
@@ -493,9 +491,6 @@ new Chart(document.getElementById('utilization'),{
       {type:'line',label:'Engineered sustainable (~3,120/day)',data:engineered,
         borderColor:lavender,borderWidth:2,borderDash:[2,3],
         pointRadius:0,fill:false,tension:0},
-      {type:'line',label:'Proven peak (5,268/day · Dec 2025)',data:proven,
-        borderColor:'#d7c6ec',borderWidth:2,borderDash:[6,4],
-        pointRadius:0,fill:'-1',backgroundColor:'rgba(234,225,245,.18)',tension:0},
       {type:'bar',label:'FY25 avg daily throughput',data:dailyAvg,
         backgroundColor:'rgba(255,255,255,.92)',borderColor:paper,borderWidth:1}
     ]
@@ -504,7 +499,7 @@ new Chart(document.getElementById('utilization'),{
     plugins:{legend:{position:'bottom',labels:{color:lavender,boxWidth:10,font:{size:9.5}}}},
     scales:{
       x:{grid:{display:false},ticks:{color:lavender}},
-      y:{beginAtZero:true,max:6000,
+      y:{beginAtZero:true,max:4000,
          ticks:{color:lavender,callback:v=>v.toLocaleString()+'/d'},
          grid:{color:'rgba(234,225,245,.12)'}}
     }

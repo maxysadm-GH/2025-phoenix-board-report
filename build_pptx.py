@@ -257,23 +257,22 @@ def build_slide2(prs):
     # Rule
     _add_rect(slide, Inches(0.6), Inches(1.45), Inches(1), Pt(1), fill_color=PURPLE)
 
-    # KPI row
+    # KPI row — 3 tiles, full width
     kpis = [
         ('~3,120', 'SUSTAINABLE DAILY\nSHIPPING CAPACITY'),
-        ('5,268/d', 'SINGLE-DAY PEAK\nPROVEN \u00b7 DEC 2025'),
         ('\u221250%', 'TECHNOLOGY COST\nYEAR OVER YEAR'),
         ('\u221275%', 'OLD SOFTWARE RISK\nELIMINATED'),
     ]
     kpi_x = Inches(0.6)
     for num, lbl in kpis:
-        _add_rect(slide, kpi_x, Inches(1.65), Inches(2.9), Pt(2), fill_color=PURPLE)
-        _add_text(slide, kpi_x, Inches(1.75), Inches(2.9), Inches(0.5), num,
+        _add_rect(slide, kpi_x, Inches(1.65), Inches(3.85), Pt(2), fill_color=PURPLE)
+        _add_text(slide, kpi_x, Inches(1.75), Inches(3.85), Inches(0.5), num,
                   font_size=28, color=PURPLE, font_name='Georgia')
-        _add_text(slide, kpi_x, Inches(2.2), Inches(2.9), Inches(0.4), lbl,
+        _add_text(slide, kpi_x, Inches(2.2), Inches(3.85), Inches(0.4), lbl,
                   font_size=8, color=MUTED, bold=True)
-        kpi_x += Inches(3.1)
+        kpi_x += Inches(4.1)
 
-    # Modernization list
+    # --- LEFT COLUMN: Modernization list ---
     _add_text(slide, Inches(0.6), Inches(2.85), Inches(5), Inches(0.25),
               'WHAT THE MODERNIZATION DELIVERED', font_size=9, color=PLUM, bold=True)
 
@@ -290,31 +289,35 @@ def build_slide2(prs):
     for k, v, s in items:
         _add_text(slide, Inches(0.6), iy, Inches(1), Inches(0.22), k,
                   font_size=8, color=MUTED, bold=True)
-        _add_text(slide, Inches(1.7), iy, Inches(5), Inches(0.22), v,
+        _add_text(slide, Inches(1.7), iy, Inches(4.2), Inches(0.22), v,
                   font_size=10.5)
-        _add_text(slide, Inches(7.0), iy, Inches(1.2), Inches(0.22), s,
+        _add_text(slide, Inches(6.0), iy, Inches(1.2), Inches(0.22), s,
                   font_size=10.5, color=PURPLE, italic=True, font_name='Georgia',
                   alignment=PP_ALIGN.RIGHT)
         iy += Inches(0.28)
 
-    # Pick accuracy hero
-    _add_text(slide, Inches(0.6), Inches(5.3), Inches(5), Inches(0.2),
+    # --- RIGHT COLUMN: Pick accuracy ---
+    rc = Inches(7.8)
+    _add_rect(slide, rc, Inches(2.85), Inches(5), Inches(4.2),
+              fill_color=WARM, border_color=RGBColor(0xD9, 0xD3, 0xCB))
+
+    _add_text(slide, rc + Inches(0.3), Inches(3.0), Inches(4.4), Inches(0.2),
               'PICK ACCURACY \u00b7 GORGIAS FY25', font_size=9, color=MUTED, bold=True)
 
-    parts = [('98.2', {'size': 48, 'color': PURPLE, 'font': 'Georgia'}),
-             ('%', {'size': 24, 'color': MUTED, 'font': 'Georgia'})]
-    _add_rich_text(slide, Inches(0.6), Inches(5.5), Inches(3), Inches(0.7), parts, 48)
+    parts = [('98.2', {'size': 56, 'color': PURPLE, 'font': 'Georgia'}),
+             ('%', {'size': 28, 'color': MUTED, 'font': 'Georgia'})]
+    _add_rich_text(slide, rc + Inches(0.3), Inches(3.3), Inches(3), Inches(0.8), parts, 56)
 
-    _add_text(slide, Inches(2.8), Inches(5.65), Inches(4), Inches(0.3),
-              'OF SHIPPED ORDERS \u2014 NO CUSTOMER-REPORTED ISSUE',
+    _add_text(slide, rc + Inches(0.3), Inches(4.1), Inches(4.4), Inches(0.3),
+              'OF SHIPPED ORDERS \u2014\nNO CUSTOMER-REPORTED ISSUE',
               font_size=9, color=MUTED, bold=True)
 
-    # Callout
-    _add_rect(slide, Inches(0.6), Inches(6.4), Pt(2), Inches(0.6), fill_color=PURPLE)
-    parts = [('Held the line during the rebuild. ', {'bold': True, 'size': 10.5}),
-             ('Q4 2025 \u2014 the quarter we re-sequenced the pick line \u2014 shipped record holiday volume (Dec 2025: 61,503 shipments, peak 5,268/day) without degrading the accuracy floor.',
-              {'size': 10.5, 'italic': True, 'font': 'Georgia'})]
-    _add_rich_text(slide, Inches(0.75), Inches(6.42), Inches(11.5), Inches(0.6), parts, 10.5)
+    # Rebuild callout inside right column
+    _add_rect(slide, rc + Inches(0.3), Inches(4.65), Pt(2), Inches(1.8), fill_color=PURPLE)
+    parts = [('Held the line during the rebuild. ', {'bold': True, 'size': 11}),
+             ('Q4 2025 \u2014 the quarter we re-sequenced the pick line \u2014 shipped record holiday volume (Dec 2025: 61,503 shipments) without degrading the accuracy floor.',
+              {'size': 11, 'italic': True, 'font': 'Georgia'})]
+    _add_rich_text(slide, rc + Inches(0.45), Inches(4.7), Inches(4.2), Inches(1.7), parts, 11)
 
 
 # ============ SLIDE 3 — WHAT LIES AHEAD ============
