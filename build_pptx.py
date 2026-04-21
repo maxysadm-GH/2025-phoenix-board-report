@@ -62,6 +62,18 @@ def _rect(slide, l, t, w, h, fill=None, border=None):
     return s
 
 def _no_border(tbl):
+    # Kill default table style (removes colored header row, banding)
+    tblPr = tbl._tbl.tblPr
+    for child in list(tblPr):
+        if child.tag.endswith('}tblStyle') or child.tag == 'tblStyle':
+            tblPr.remove(child)
+    tblPr.set('bandRow', '0')
+    tblPr.set('bandCol', '0')
+    tblPr.set('firstRow', '0')
+    tblPr.set('firstCol', '0')
+    tblPr.set('lastRow', '0')
+    tblPr.set('lastCol', '0')
+    # Remove cell borders
     for cell in tbl._tbl.iter_tcs():
         tcPr = cell.get_or_add_tcPr()
         for edge in ('lnL','lnR','lnT','lnB'):
@@ -92,7 +104,7 @@ def _cell_rich(c, parts, sz=9, align=PP_ALIGN.LEFT):
 
 def _stat(slide, l, t, num, label, nc=PURPLE, ns=24):
     _tx(slide, l, t, Inches(1.7), Inches(0.35), num, sz=ns, color=nc, font='Georgia')
-    _tx(slide, l, t + Inches(0.33), Inches(1.7), Inches(0.3), label, sz=7, color=MUTED, bold=True)
+    _tx(slide, l, t + Inches(0.35), Inches(1.7), Inches(0.45), label, sz=7, color=MUTED, bold=True)
 
 def _bg(slide):
     slide.background.fill.solid(); slide.background.fill.fore_color.rgb = IVORY
